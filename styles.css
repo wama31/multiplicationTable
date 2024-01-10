@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .horizontal-container {
+    display: inline flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; /* Ajustement de l'alignement */
+    margin-bottom: 0px;
+    width: 100%; /* Ajustement de la largeur pour centrer */
+    /* margin: 0 auto; Pour centrer horizontalement */
+  }
+
+  #answer {
+    margin: 0 10px;
+    padding: 5px;
+    font-size: 20px; /* Taille de police très grande */
+    margin-bottom: 1px; /* Marge en bas pour l'espace visuel */
+  }
+  
+  #result {
+    color: red;
+  }
+
+#multiplication {
+  font-size: 20px; /* Taille de police très grande */
+  margin-bottom: 5px; /* Marge en bas pour l'espace visuel */
+}
