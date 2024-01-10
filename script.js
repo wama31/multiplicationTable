@@ -1,6 +1,7 @@
 const nextBtn = document.getElementById('nextBtn');
 const multiplicationText = document.getElementById('multiplication');
 const answerInput = document.getElementById('answer');
+const progressBar = document.getElementById('progressBar');
 
 nextBtn.addEventListener('click', () => {
   const num1 = Math.floor(Math.random() * 9) + 1;
@@ -8,10 +9,20 @@ nextBtn.addEventListener('click', () => {
   const answer = num1 * num2;
 
   multiplicationText.textContent = `${num1} x ${num2} =`;
+  answerInput.focus();
 
-  setTimeout(() => {
-    checkAnswer(answer);
-  }, 2000);
+  progressBar.style.width = '100%'; // Réinitialisation de la jauge de progression
+
+  let width = 100;
+  const interval = setInterval(() => {
+    width -= 0.1;
+    progressBar.style.width = `${width}%`;
+
+    if (width <= 0) {
+      clearInterval(interval);
+      checkAnswer(answer);
+    }
+  }, 3);
 });
 
 function checkAnswer(correctAnswer) {
