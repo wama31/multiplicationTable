@@ -2,39 +2,53 @@ const nextBtn = document.getElementById('nextBtn');
 const multiplicationText = document.getElementById('multiplication');
 const answerInput = document.getElementById('answer');
 const progressBar = document.getElementById('progressBar');
+const timeOut = 6;
+const progressBarMaxValue = 100;
+let interval = null;
+let num1 = 0;
+let num2 = 0;
+let answer = num1 * num2;
+
+progressBar.max = progressBarMaxValue;
+
 
 nextBtn.addEventListener('click', () => {
-  const num1 = Math.floor(Math.random() * 9) + 1;
-  const num2 = Math.floor(Math.random() * 9) + 1;
-  const answer = num1 * num2;
+  num1 = Math.floor(Math.random() * 9) + 1;
+  num2 = Math.floor(Math.random() * 9) + 1;
+  answer = num1 * num2;
 
   multiplicationText.textContent = `${num1} x ${num2} =`;
   answerInput.focus();
+  answerInput.style.color = 'black'; // init fetch color
+  answerInput.style.backgroundColor = 'white';
+  answerInput.textContent = "";
 
-  progressBar.style.width = '100%'; // Réinitialisation de la jauge de progression
 
-  let width = 100;
-  const interval = setInterval(() => {
-    width -= 0.1;
-    progressBar.style.width = `${width}%`;
-
-    if (width <= 0) {
+  let currentValue = 100;
+  interval = setInterval(() => {
+    currentValue -= 0.05;
+    progressBar.value = currentValue;
+    if (currentValue <= 0) {
       clearInterval(interval);
       checkAnswer(answer);
     }
-  }, 3);
+  }, timeOut);
+});
+
+answerInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    clearInterval(interval);
+    checkAnswer(answer);
+  }
 });
 
 function checkAnswer(correctAnswer) {
     const userAnswer = parseInt(answerInput.value);
-  
-    if (isNaN(userAnswer) || userAnswer !== correctAnswer) {
-      answerInput.value = correctAnswer; // Affichage du résultat correct dans la zone de saisie
-      answerInput.style.color = 'red';
-      // Simuler un bip (ici en utilisant un affichage console)
-      console.log('Bip! Réponse incorrecte ou temps écoulé.');
-    } else {
-      answerInput.style.color = 'black'; // Réinitialisation de la couleur de la saisie
+    if (userAnswer == correctAnswer) {
+      answerInput.style.backgroundColor  = 'green';
+    }
+    else{
+      answerInput.style.backgroundColor  = 'red';
     }
   }
 
